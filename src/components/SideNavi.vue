@@ -2,12 +2,13 @@
   <div>
     <div class="left-padding">
       <img class="logo" src="../assets/logo.png" />
-      <div class="flex icon-field" @click="router.push('/home')">
-      <img class="icon" src="../assets/home.png" />
-      <p>ホーム</p>
+      <div class="flex icon-field" @click="$router.push('/home')">
+        <img class="icon" src="../assets/home.png" />
+        <p>ホーム</p>
       </div>
-      <div class="flex icon-field" @click="router.push('/profile')">
-      <img class="icon" src="../assets/profile.png" />
+      <div class="flex icon-field" @click="$router.push('/profile')">
+        <img class="icon" src="../assets/profile.png" />
+        <p>プロフィール</p>
       </div>
       <div class="flex icon-field" @click="$store.dispatch('logout')">
         <img class="icon" src="../assets/logout.png" />
@@ -20,37 +21,31 @@
 
 <script>
 import ShareMessage from "../components/ShareMessage";
-
 export default {
-  components:{
+  components: {
     ShareMessage
   }
 };
 </script>
 
 <style scoped>
-.left-padding{
+.left-padding {
   margin: 20px;
 }
-
-.flex{
+.flex {
   display: flex;
 }
-
-.logo{
+.logo {
   width: 100px;
 }
-
-.icon-field{
+.icon-field {
   margin-top: 15px;
   cursor: pointer;
 }
-
-.icon{
+.icon {
   width: 25px;
 }
-
-.icon-field p{
+.icon-field p {
   font-size: 16px;
   padding-left: 15px;
 }

@@ -14,10 +14,10 @@
         </div>
         <div class="message" v-for="(comment,index) in data" :key="index">
           <div class="flex">
-            <p class="name">{{comment.name}}</p>
+            <p class="name">{{comment.comment_user.name}}</p>
           </div>
           <div>
-            <p class="text">{{comment.content}}</p>
+            <p class="text">{{comment.comment.content}}</p>
           </div>
         </div>
         <input v-model="content" type="text" />
@@ -32,14 +32,42 @@
 <script>
 import SideNavi from "../components/SideNavi";
 import Message from "../components/Message";
-
+import axios from "axios";
 export default {
   props: ["id"],
   data() {
     return {
       content: "",
-      data: [{ name: "太郎", like: [], share: "初めまして" }]
+      data:"",
     };
+  },
+  methods:{
+    send(){
+      axios
+      .post("http://127.0.0.1:8000/api/comment",{
+        share_id:this.id,
+        user_id:this.$route.state.user.id,
+        content:this.content,
+      })
+      .then((response)=>{
+        console.log(response);
+        this.context="";
+        this.$router.go({
+          path:this.$router.currentRoute.path,
+          force:true,
+        });
+      });
+    },
+    comment(){
+      axios
+      .get("http://127.0.0.1:8000/api/shares/"+this.id)
+      .then((response)=>{
+        this.data=response.data.comment;
+      });
+    },
+  },
+  creted(){
+    this.comment();
   },
   components: {
     SideNavi,
